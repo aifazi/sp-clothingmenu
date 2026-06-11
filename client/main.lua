@@ -617,7 +617,61 @@ CreateThread(function()
     end
 
     SetupTarget()
+
+    if GetResourceState('ox_lib') == 'started' then
+        lib.registerRadial({
+            id = 'clothingmenu_radial',
+            items = {
+                {
+                    label = 'Open Clothing Menu',
+                    icon = 'fa-solid fa-shirt',
+                    onSelect = function()
+                        ToggleMenu()
+                    end
+                },
+                {
+                    label = 'Remove Clothing (Target)',
+                    icon = 'fa-solid fa-shirt',
+                    onSelect = function()
+                        local ped = GetClosestPlayer(5.0)
+                        if ped then
+                            OpenTargetMenu(ped)
+                        else
+                            Notify('No nearby player found.', 'error')
+                        end
+                    end
+                }
+            }
+        })
+
+        lib.addRadialItem({
+            id = 'clothingmenu_open',
+            label = 'Clothing Menu',
+            icon = 'fa-solid fa-shirt',
+            menu = 'clothingmenu_radial'
+        })
+    end
 end)
+
+function GetClosestPlayer(distance)
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+    local closestPed, closestDist = nil, distance
+
+    for _, ped in ipairs(GetActivePlayers()) do
+        local targetPed = GetPlayerPed(ped)
+        if targetPed ~= playerPed and DoesEntityExist(targetPed) then
+            local targetCoords = GetEntityCoords(targetPed)
+            local dist = #(playerCoords - targetCoords)
+            if dist < closestDist then
+                closestDist = dist
+                closestPed = targetPed
+            end
+        end
+    end
+
+    return closestPed
+end
 
 RegisterCommand(Config.Command, function()
     ToggleMenu()
