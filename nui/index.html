@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clothing Menu</title>
+    <title>AIFAZI Clothing Menu</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
-
 <body>
-    <div id="app" style="display: none;">
-        <div class="menu-container">
-            <div id="radial-menu" class="radial-menu"></div>
-            <div class="item-label" id="item-label">SELECT</div>
-        </div>
-    </div>
+    <main id="app" class="app" aria-hidden="true">
+        <section id="hud" class="hud" aria-label="Clothing controls">
+            <div id="target-info" class="target-info" hidden>
+                <span class="target-dot"></span>
+                <span class="target-kicker">TARGET</span>
+                <strong id="target-name">PLAYER</strong>
+            </div>
+            <div id="anchor-layer" class="anchor-layer"></div>
+            <div id="item-label" class="item-label" hidden>
+                <span id="item-status" class="item-status">READY</span>
+                <strong id="item-name">SELECT</strong>
+            </div>
+            <div id="toast-stack" class="toast-stack" aria-live="polite"></div>
+            <button id="close-button" class="close-button" type="button" aria-label="Close clothing menu">
+                <span>ESC</span>
+            </button>
+        </section>
+    </main>
     <script src="script.js"></script>
 </body>
-
 </html>

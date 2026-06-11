@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 author 'SP-Scripts'
 description 'Clothing Menu'
-version '1.0.0'
+version '1.1.0'
 
 ui_page 'nui/index.html'
 
@@ -14,9 +14,21 @@ files {
 
 client_scripts {
     'config.lua',
+    'bridge/init.lua',
     'client/main.lua'
 }
 
 server_scripts {
+    'config.lua',
+    'bridge/init.lua',
     'server/main.lua'
+}
+
+shared_script {
+    '@ox_lib/init.lua'
+}
+
+dependencies {
+    'ox_lib',
+    'ox_target'
 }
