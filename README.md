@@ -1,4 +1,4 @@
-# sp-clothingmenu
+# clothingmenu
 
 Advanced 3D Floating UI Clothing Menu for FiveM (QBX / QBCore / ESX / Standalone)
 
@@ -18,14 +18,14 @@ A modern, immersive clothing interaction menu that projects a **3D Floating UI**
 
 ## Installation
 
-1. Place `sp-clothingmenu` folder in your server's `resources` directory
+1. Place `clothingmenu` folder in your server's `resources` directory
 2. Ensure dependencies in `server.cfg`:
    ```cfg
    ensure ox_lib
    ensure ox_target
-   ensure sp-clothingmenu
+   ensure clothingmenu
    ```
-3. Restart server or run `ensure sp-clothingmenu`
+3. Restart server or run `ensure clothingmenu`
 
 ## Dependencies
 

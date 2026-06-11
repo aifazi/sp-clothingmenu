@@ -72,7 +72,7 @@ local function SanitizeMetadata(metadata, src, targetSrc)
         label = tostring(metadata.label or 'Clothing'),
         description = tostring(metadata.description or ('Drawable %s / Texture %s'):format(drawable, texture)),
         texture = texture,
-        source = 'sp-clothingmenu',
+        source = 'clothingmenu',
         itemName = metadata.itemName,
         targetServerId = targetSrc ~= src and targetSrc or nil,
         component = component,
@@ -95,7 +95,7 @@ local function AddClothingToInventoryOrDrop(targetSrc, itemName, metadata)
         label = tostring(metadata.label or 'Clothing'),
         description = tostring(metadata.description or ''),
         texture = tonumber(metadata.texture) or 0,
-        source = tostring(metadata.source or 'sp-clothingmenu'),
+        source = tostring(metadata.source or 'clothingmenu'),
         itemName = tostring(metadata.itemName or 'clothing'),
         targetServerId = metadata.targetServerId,
         component = metadata.component and tonumber(metadata.component) or nil,
@@ -126,7 +126,7 @@ local function AddClothingToInventoryOrDrop(targetSrc, itemName, metadata)
     return dropId ~= nil, dropId and 'drop' or 'failed'
 end
 
-RegisterNetEvent('sp-clothingmenu:server:addClothingItem', function(metadata)
+RegisterNetEvent('clothingmenu:server:addClothingItem', function(metadata)
     local src = source
 
     if not Config.ItemSystem then return end
@@ -175,7 +175,7 @@ RegisterNetEvent('sp-clothingmenu:server:addClothingItem', function(metadata)
     end
 end)
 
-RegisterNetEvent('sp-clothingmenu:server:removeUsedClothingItem', function(itemName, slot, metadata)
+RegisterNetEvent('clothingmenu:server:removeUsedClothingItem', function(itemName, slot, metadata)
     local src = source
 
     if not Config.ItemSystem then return end
@@ -201,7 +201,7 @@ RegisterNetEvent('sp-clothingmenu:server:removeUsedClothingItem', function(itemN
     end
 end)
 
-RegisterNetEvent('sp-clothingmenu:server:syncClothingState', function(targetSrc, index, state, itemData)
+RegisterNetEvent('clothingmenu:server:syncClothingState', function(targetSrc, index, state, itemData)
     local src = source
     targetSrc = tonumber(targetSrc)
     index = tonumber(index)
@@ -210,7 +210,7 @@ RegisterNetEvent('sp-clothingmenu:server:syncClothingState', function(targetSrc,
     if not IsTargetNearSource(src, targetSrc) then return end
     if not IsPlayerEligibleTarget(targetSrc) then return end
 
-    TriggerClientEvent('sp-clothingmenu:client:syncClothingState', targetSrc, index, state == true, itemData)
+    TriggerClientEvent('clothingmenu:client:syncClothingState', targetSrc, index, state == true, itemData)
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)

@@ -17,7 +17,7 @@ Config = {
     framework = 'auto',
 
     -- Item system: true = remove→inventory→wear, false = free toggle on/off
-    itemSystem = true,
+    itemSystem = false,
 
     ui = {
         colors = {

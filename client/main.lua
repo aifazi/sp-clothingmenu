@@ -416,7 +416,7 @@ local function BuildMetadata(item, drawable, texture, targetServerId)
         label = tostring(item.label),
         description = ('%s | drawable %s / texture %s'):format(item.label, drawable, texture),
         texture = tonumber(texture) or 0,
-        source = 'sp-clothingmenu',
+        source = 'clothingmenu',
         itemName = tostring(item.itemName),
         targetServerId = targetServerId,
         component = item.type == 'component' and tonumber(item.component) or nil,
@@ -479,8 +479,8 @@ function UseClothingItem(itemData, slotData)
         return
     end
 
-    TriggerServerEvent('sp-clothingmenu:server:removeUsedClothingItem', slotData.name, slotData.slot, metadata)
-    TriggerEvent('sp-clothingmenu:client:clothingItemApplied', metadata)
+    TriggerServerEvent('clothingmenu:server:removeUsedClothingItem', slotData.name, slotData.slot, metadata)
+    TriggerEvent('clothingmenu:client:clothingItemApplied', metadata)
     Notify(('%s equipped.'):format(metadata.label or 'Clothing'), 'success')
 end
 
@@ -530,7 +530,7 @@ function ToggleClothingItem(index, item)
         if Config.ItemSystem then
             local targetServerId = isTargetMenu and GetPlayerServerIdFromPed(ped) or nil
             local metadata = BuildMetadata(item, currentDrawable, currentTexture, targetServerId)
-            TriggerServerEvent('sp-clothingmenu:server:addClothingItem', metadata)
+            TriggerServerEvent('clothingmenu:server:addClothingItem', metadata)
 
             if isTargetMenu and targetServerId then
                 local itemData = {
@@ -540,7 +540,7 @@ function ToggleClothingItem(index, item)
                     offDrawable = offDrawable,
                     offTexture = offTexture
                 }
-                TriggerServerEvent('sp-clothingmenu:server:syncClothingState', targetServerId, index, false, itemData)
+                TriggerServerEvent('clothingmenu:server:syncClothingState', targetServerId, index, false, itemData)
             end
         else
             if isTargetMenu then
@@ -553,7 +553,7 @@ function ToggleClothingItem(index, item)
                         offDrawable = offDrawable,
                         offTexture = offTexture
                     }
-                    TriggerServerEvent('sp-clothingmenu:server:syncClothingState', targetServerId, index, false, itemData)
+                    TriggerServerEvent('clothingmenu:server:syncClothingState', targetServerId, index, false, itemData)
                 end
             end
         end
@@ -601,7 +601,7 @@ function ToggleClothingItem(index, item)
                     drawable = saved.drawable,
                     texture = saved.texture
                 }
-                TriggerServerEvent('sp-clothingmenu:server:syncClothingState', targetServerId, index, true, itemData)
+                TriggerServerEvent('clothingmenu:server:syncClothingState', targetServerId, index, true, itemData)
             end
         end
 
@@ -647,11 +647,11 @@ end, false)
 RegisterKeyMapping(Config.Command, 'Open Clothing Menu', 'keyboard', Config.DefaultKey)
 RegisterKeyMapping(Config.CursorCommand or 'clothingcursor', 'Toggle Clothing Menu Cursor', 'keyboard', Config.CursorKey or 'LMENU')
 
-RegisterNetEvent('sp-clothingmenu:client:open', function()
+RegisterNetEvent('clothingmenu:client:open', function()
     OpenMenu()
 end)
 
-RegisterNetEvent('sp-clothingmenu:client:clothingItemApplied', function(metadata)
+RegisterNetEvent('clothingmenu:client:clothingItemApplied', function(metadata)
     if type(metadata) ~= 'table' then return end
 
     local index
@@ -669,10 +669,10 @@ RegisterNetEvent('sp-clothingmenu:client:clothingItemApplied', function(metadata
     SaveAppearance()
 end)
 
-RegisterNetEvent('sp-clothingmenu:client:useClothingItem', UseClothingItem)
+RegisterNetEvent('clothingmenu:client:useClothingItem', UseClothingItem)
 exports('UseClothingItem', UseClothingItem)
 
-RegisterNetEvent('sp-clothingmenu:client:syncClothingState', function(index, state, itemData)
+RegisterNetEvent('clothingmenu:client:syncClothingState', function(index, state, itemData)
     if type(index) ~= 'number' then return end
     clothingState[index] = state == true
     SendNUIMessage({ type = 'updateState', states = clothingState })

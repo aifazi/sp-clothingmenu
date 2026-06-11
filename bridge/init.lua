@@ -189,7 +189,7 @@ local function Init()
         InitStandalone()
     end
 
-    print(('[sp-clothingmenu] Framework loaded: %s%s'):format(framework, esxVersion and (' (' .. esxVersion .. ')') or ''))
+    print(('[clothingmenu] Framework loaded: %s%s'):format(framework, esxVersion and (' (' .. esxVersion .. ')') or ''))
 end
 
 Init()
